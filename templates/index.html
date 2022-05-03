@@ -1,0 +1,132 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+  <div class = "row">
+      <div id="f1" class = "text-white  card bg-secondary col-sm-6">
+          <h3 class="text-center">Take Attendace</h3>
+          {% if msgs %}
+          <div class="alert alert-success">
+            Attendance Successfully Marked for : 
+            <strong>
+              {% for name in msgs %}
+              {{ name }},
+              {% endfor %}
+            </strong>
+          </div>
+          {% endif %}
+      
+        <form method = "post" action="/takeattendance">
+          <div class="mb-3">
+            <select class="form-select" name="branch" >
+              <option selected>Select Branch</option>
+              <option value="IT">IT</option>
+              <option value="CSE">CSE</option>
+              <option value="ECE">ECE</option>
+              <option value="CIVIL">CIVIL</option>
+              <option value="MECH">MECH</option>
+              <option value="CHEM">CHEM</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <select class="form-select" name="year" >
+              <option selected>Select Year</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <select name= "section" class="form-select" aria-label="Default select example">
+              <option selected>Choose Section</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <select class="form-select" name="period">
+              <option selected>Select Subject</option>
+              <option value="1">SUB-1</option>
+              <option value="2">SUB-2</option>
+              <option value="3">SUB-3</option>
+              <option value="4">SUB-4</option>
+              <option value="5">SUB-5</option>
+              <option value="6">SUB-6</option>
+            </select>
+          </div>
+          <center><button type="submit" class="btn btn-sm btn-info">Capture faces</button></center>
+        </form>
+      </div>
+      
+
+      <div class = "text-white card bg-secondary col-sm-6">
+        <h3 class="text-center">Add Student</h3 >
+          {% if newname %}
+          <div class="alert alert-success">
+            <strong>
+              New Student {{ newname }} has been successfully enrolled.
+            </strong>
+          </div>
+          {% endif %}
+        <form method="post" action = "/addstudent" enctype="multipart/form-data" >
+          <div class="mb-3">
+          <input class="form-control" name ="studentid" type="text" placeholder="Enter JNTU No." required>
+          </div>
+          <div class="mb-3">
+            <input class="form-control" name ="name" type="text" placeholder="Enter Name" required>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+            <label for="branch">Branch</label>
+            <select name="branch" class="form-select" required>
+              <option value="IT">IT</option>
+              <option value="CSE">CSE</option>
+              <option value="ECE">ECE</option>
+              <option value="CIVIL">CIVIL</option>
+              <option value="MECH">MECH</option>
+              <option value="CHEM">CHEM</option>
+            </select>
+            </div>
+            
+            <div class="col">
+            <label for="year">Year of Study</label>
+            <select name="year"  class="form-select" required >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+            </div>
+            <div class="col">
+              <label for="section">Section</label>
+              <select name="section" class="form-select" required>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="form-label" for="image">Choose an Image</label>
+          <input type="file" name="image" class="form-control" required accept="image/*"/>
+          <br>
+          <center><button type="submit" class="btn btn-sm btn-info">Enroll</button></center>
+        </form>
+      </div>
+  </div>
+</div>
+<br>
+<br>
+
+<div class="card container">
+<a href="/search" class="btn btn-info"><div class="h3">Attendance Report</div></a>
+<p class="text-center mark">Click here to get the attendance report of a class on a particular date</p>
+</div>
+
+<br>
+<br>
+
+{% endblock %}

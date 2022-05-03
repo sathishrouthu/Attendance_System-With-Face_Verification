@@ -1,0 +1,141 @@
+
+
+{% extends 'layout.html' %}
+	
+{% block search %}
+	<link href="url_for('https://fonts.googleapis.com/css?family=Montserrat:300,600')", rel= "stylesheet" >
+	<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block content %}
+<div id="booking" class="section">
+	<div class="section-top">
+		<div class="container">
+			<div class="row">
+				<div class="booking-form">
+					<form method="post" action="/search">
+						<div class="col-sm-2">
+							<div class="form-group">
+								<select  name="branch" class="form-control">
+									<option value="IT">IT</option>
+									<option value="CSE">CSE</option>
+									<option value="ECE">ECE</option>
+									<option value="CIVIL">CIVIL</option>
+									<option value="MECH">MECH</option>
+									<option value="CHEM">CHEM</option>
+								</select>
+								<span class="select-arrow"></span>
+								<span class="form-label">Branch</span>
+							</div>
+						</div>
+
+						<div  class="col-sm-2">
+							<div class="form-group">
+								<select name="year" class="form-control">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+								</select>
+								<span class="select-arrow"></span>
+								<span class="form-label">Select Year</span>
+							</div>
+						</div>
+
+						<div class="col-sm-2">
+							<div class="form-group">
+								<select name="section" class="form-control">
+									<option value="A">A</option>
+									<option value="B">B</option>
+									<option value="C">C</option>
+								</select>
+								<span class="select-arrow"></span>
+								<span class="form-label">Choose Section</span>
+							</div>
+						</div>
+
+						<div class="col-sm-2">
+							<div class="form-group">
+								<select name="period" class="form-control">
+									<option value="1">SUB-1</option>
+									<option value="2">SUB-2</option>
+									<option value="3">SUB-3</option>
+									<option value="4">SUB-4</option>
+									<option value="5">SUB-5</option>
+									<option value="6">SUB-6</option>
+								</select>
+								<span class="select-arrow"></span>
+								<span class="form-label">Choose Subject</span>
+							</div>
+						</div>
+
+						<div class="col-sm-4">
+							<div class="form-group">
+								<input name="date" class="form-control" type="date" required>
+								<span class="form-label">Date</span>
+							</div>
+						</div>
+
+						<div class="col-sm-12">
+							<div class="form-btn">
+								<button type="submit" class="submit-btn">Get Attendance Report</button>
+							
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<br>
+<section class="container">
+  {% if results %}
+  <h4 class="text-center">Class : {{ clas }}</h4>
+  <h4 class="text-center"><mark>Attendance on Date : {{ date }} - Subject-{{ period }} </mark></h4>
+
+	<table class="table">
+	  <thead class="thead-light">
+		<tr>
+		  <th scope="col">StudentID</th>
+		  <th scope="col">Student Name</th>
+		  <th scope="col">Status</th>
+		</tr>
+	  </thead>
+
+
+	  <tbody>
+		{% for row in results %}
+		{% if  row[2]== 'present' %}
+		<tr class="table-success">
+		  <th scope="row">{{ row[0] }}</th>
+		  <td>{{ row[1] }}</td>
+		  <td>{{ row[2] }}</td>
+		</tr>
+		{% endif %}
+
+		{% if  row[2]== 'absent' %}
+		<tr class="table-danger">
+		  <th scope="row">{{ row[0] }}</th>
+		  <td>{{ row[1] }}</td>
+		  <td>{{ row[2] }}</td>
+		</tr>
+		{% endif %}
+		{% endfor %}
+
+	  </tbody>
+	</table>
+
+	{% endif %}
+
+  </section>
+
+</div>
+{% endblock %}
+
+
+
+
+
+
